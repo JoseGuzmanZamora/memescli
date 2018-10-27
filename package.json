@@ -1,0 +1,15 @@
+{
+    "name": "memes-cli",
+    "version": "1.0.0",
+    "license": "MIT",
+    "bin": {
+        "memes": "bin/memes"
+    },
+    "scripts": {},
+    "devDependencies": {},
+    "dependencies": {
+        "commander": "^2.19.0",
+        "inquirer": "^6.2.0",
+        "request": "^2.88.0"
+    }
+}
