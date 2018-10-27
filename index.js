@@ -26,9 +26,31 @@ program
 
   program
   .command('top <subreddit>')
-  .description('Expose the top post in the corresponding subreddit.')
+  .description('Expose the top post in the corresponding subreddit. Look for the meme in the images folder!')
   .action((subreddit) => {
     var link = "https://www.reddit.com/r/" + subreddit + "/top/.json"
+    https.get((link), (res) => {
+      var respuesta = ''
+      res.on('data', (chunk) => {
+        respuesta += chunk.toString();
+      })
+      res.on('end', () => {
+        console.log('*' + JSON.parse(respuesta)['data']['children']['0']['data']['title'])
+        console.log('     ' + JSON.parse(respuesta)['data']['children']['0']['data']['url'])
+        var options = {
+          url: JSON.parse(respuesta)['data']['children']['0']['data']['url'],
+          dest: './images'
+        }
+        download.image(options)
+      })
+    })
+  })
+
+  program
+  .command('new <subreddit>')
+  .description('Expose the newest post in the corresponding subreddit. Look for the meme in the images folder!')
+  .action((subreddit) => {
+    var link = "https://www.reddit.com/r/" + subreddit + "/new/.json"
     https.get((link), (res) => {
       var respuesta = ''
       res.on('data', (chunk) => {
@@ -49,7 +71,6 @@ program
 program.parse(process.argv);
 
 module.exports = () => {
-  console.log('Welcome to the outside!')
 }
 
 
