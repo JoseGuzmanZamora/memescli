@@ -39,7 +39,7 @@ program
         console.log('     ' + JSON.parse(respuesta)['data']['children']['0']['data']['url'])
         var options = {
           url: JSON.parse(respuesta)['data']['children']['0']['data']['url'],
-          dest: './images'
+          dest: './'
         }
         download.image(options)
       })
@@ -61,7 +61,7 @@ program
         console.log('     ' + JSON.parse(respuesta)['data']['children']['0']['data']['url'])
         var options = {
           url: JSON.parse(respuesta)['data']['children']['0']['data']['url'],
-          dest: './images'
+          dest: './'
         }
         download.image(options)
       })
