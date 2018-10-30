@@ -5,6 +5,8 @@ const clear = require('clear');
 const figlet = require('figlet');
 const spin = require('clui').Spinner;
 
+const status = new spin('Connecting to Reddit . . .');
+
 program
   .version('1.1.0')
   .description(' - Reddit cli - WATCH MEMES AT WORK, just pretend you are coding!')
@@ -13,12 +15,14 @@ program
   .command('trending')
   .description('Exposes the 5 most popular subreddits in the internet.')
   .action(() => {
+    status.start();
     https.get('https://www.reddit.com/r/Trending/.json', (res) => {
       var respuesta = ''
       res.on('data', (chunk) => {
         respuesta += chunk.toString();
       })
       res.on('end', () => {
+        status.stop();
         clear()
         console.log(figlet.textSync('Trending', { horizontalLayout: 'full' }))
         for(var i = 0; i <= 5; i++){
@@ -27,6 +31,7 @@ program
         }
       })
       res.on("error",(err) => {
+        status.stop();
         Console.log("ERROR BUU :(")
         Console.log(err)
       })
@@ -38,6 +43,7 @@ program
   .option('-s --sort <order>', 'Choose sorting order')
   .description('Exposes and downloads the first meme in the subreddit.')
   .action((subreddit, cmd) => {
+    status.start();
     if(cmd.sort && (cmd.sort == "top" || cmd.sort == "new" || cmd.sort == "rising" || cmd.sort == "controversial")){
       console.log("Sorting by " + cmd.sort)
       var link = 'https://www.reddit.com/r/' + subreddit + '/'+ cmd.sort.toString() +'/.json'
@@ -51,6 +57,7 @@ program
         respuesta += chunk.toString();
       })
       res.on('end', () => {
+        status.stop();
         console.log('*' + JSON.parse(respuesta)['data']['children']['0']['data']['title'])
         console.log('     ' + JSON.parse(respuesta)['data']['children']['0']['data']['url'])
         var options = {
@@ -60,6 +67,7 @@ program
         download.image(options)
       })
       res.on("error",(err) => {
+        status.stop();
         Console.log("ERROR BUU :(")
         Console.log(err)
       })
@@ -71,6 +79,7 @@ program
   .option('-s --sort <order>', 'Choose sorting order')
   .description("Shows and downloads the amount of memes you want from the subreddit r/memes")
   .action((amount, cmd) => {
+    status.start();
     if(cmd.sort && (cmd.sort == "top" || cmd.sort == "new" || cmd.sort == "rising" || cmd.sort == "controversial")){
       console.log("Sorting by " + cmd.sort)
       var link = 'https://www.reddit.com/r/memes/'+ cmd.sort.toString() +'/.json'
@@ -84,6 +93,7 @@ program
         respuesta += chunk.toString();
       })
       res.on('end', () => {
+        status.stop();
         clear()
         console.log(figlet.textSync('HAHAHA', { horizontalLayout: 'full' }))
         for(var i = 0; i < amount; i++){
@@ -97,6 +107,7 @@ program
         }
       })
       res.on("error",(err) => {
+        status.stop();
         Console.log("ERROR BUU :(")
         Console.log(err)
       })
