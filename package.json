@@ -8,9 +8,12 @@
     "scripts": {},
     "devDependencies": {},
     "dependencies": {
+        "chalk": "^2.4.1",
+        "clear": "^0.1.0",
+        "clui": "^0.3.6",
         "commander": "^2.19.0",
+        "figlet": "^1.2.1",
         "https": "^1.0.0",
-        "image-downloader": "^3.4.1",
-        "inquirer": "^6.2.0"
+        "image-downloader": "^3.4.1"
     }
 }
