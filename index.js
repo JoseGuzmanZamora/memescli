@@ -8,7 +8,7 @@ const spin = require('clui').Spinner;
 const status = new spin('Connecting to Reddit . . .');
 
 program
-  .version('1.1.0')
+  .version('1.2.0')
   .description(' - Reddit cli - WATCH MEMES AT WORK, just pretend you are coding!')
 
 program
